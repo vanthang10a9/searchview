@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,40 +15,43 @@ public class ItemAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater layoutInflater;
     private List<Person> personList;
+    private ArrayList<Person> arrayList;
 
     public ItemAdapter(Context mContext, List<Person> personList) {
         this.mContext = mContext;
         this.layoutInflater = LayoutInflater.from(mContext);
         this.personList = personList;
+        this.arrayList  = new ArrayList<Person>();
+        this.arrayList.addAll(personList);
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return personList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return personList.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder = new ViewHolder();
         if(view == null) {
-            view = layoutInflater.inflate(R.layout.layout_item, viewGroup);
+            view = layoutInflater.inflate(R.layout.layout_item, viewGroup, false);
             viewHolder.textViewName = view.findViewById(R.id.textViewName);
             viewHolder.textViewAge = view.findViewById(R.id.textViewAge);
             view.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) view.getTag();
         }
-        viewHolder.textViewName.setText(personList.get(i).getName());
-        viewHolder.textViewAge.setText(personList.get(i).getAge());
+        viewHolder.textViewName.setText("Name: " + personList.get(i).getName());
+        viewHolder.textViewAge.setText("Age: " + personList.get(i).getAge());
         return view;
     }
 
@@ -59,9 +63,9 @@ public class ItemAdapter extends BaseAdapter {
         charText = charText.toLowerCase(Locale.getDefault());
         personList.clear();
         if (charText.length() == 0) {
-            personList.addAll(personList);
+            personList.addAll(arrayList);
         } else {
-            for (Person wp : personList) {
+            for (Person wp : arrayList) {
                 if (wp.getName().toLowerCase(Locale.getDefault()).contains(charText)) {
                     personList.add(wp);
                 }
