@@ -1,15 +1,16 @@
 package com.example.scrollview;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.appcompat.widget.SearchView;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.SearchView;
+
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     private SearchView mSearchView;
     private ListView mListView;
 //    List<Person> mData;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         mItemAdapter = new ItemAdapter(this, addData());
         mListView.setAdapter(mItemAdapter);
 
+        mSearchView.setOnQueryTextListener(this);
+
     }
     private List<Person> addData(){
         List<Person> personList = new ArrayList<>();
@@ -39,5 +42,17 @@ public class MainActivity extends AppCompatActivity {
         personList.add(new Person("Sam Smith", "25"));
 
         return personList;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        String text = newText;
+        mItemAdapter.filter(text);
+        return false;
     }
 }

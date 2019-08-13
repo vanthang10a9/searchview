@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Locale;
 
 public class ItemAdapter extends BaseAdapter {
     private Context mContext;
@@ -54,4 +55,19 @@ public class ItemAdapter extends BaseAdapter {
          TextView textViewName;
          TextView textViewAge;
     }
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        personList.clear();
+        if (charText.length() == 0) {
+            personList.addAll(personList);
+        } else {
+            for (Person wp : personList) {
+                if (wp.getName().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    personList.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
 }
