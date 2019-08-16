@@ -21,19 +21,18 @@
             android:padding="20dp"
             app:iconifiedByDefault="true"
             app:queryHint="enter key to search here"></androidx.appcompat.widget.SearchView>
+
         <TextView
             android:id="@+id/textViewResult"
-            android:padding="10dp"
-            android:background="#8BC34A"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="#8BC34A"
+            android:padding="10dp" />
 
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent">
-
-        </ListView>
+            android:layout_height="fill_parent"></ListView>
 
     </LinearLayout>
 
